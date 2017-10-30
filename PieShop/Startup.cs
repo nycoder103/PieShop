@@ -35,6 +35,8 @@ namespace PieShop
                     options.UseSqlServer(_configurationRoot.GetConnectionString("DefaultConnection")));
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IPieRepository, PieRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ShoppingCart>(sp => ShoppingCart.GetCart(sp));
             services.AddMvc();
 
             services.AddMemoryCache();
@@ -55,13 +57,14 @@ namespace PieShop
             //Ability for site to serve static files
             app.UseStaticFiles();
 
+            app.UseSession();
+
             //Sets up MVC Middleware with default routing schema
             app.UseMvcWithDefaultRoute();
 
             //Fill database with initial data
             DbInitializer.Seed(app, dbContext);
-
-            app.UseSession();
+            
 
         }
     }
