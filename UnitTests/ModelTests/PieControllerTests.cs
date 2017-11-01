@@ -41,6 +41,17 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void PieController_Test_List_ViewResultIsTypeOfPiesListViewModel()
+        {
+            var viewResult = pieController.List(string.Empty);
+
+            var list = viewResult.ViewData.Model;
+
+            Assert.IsInstanceOfType(list, typeof(PiesListViewModel));
+        }
+
+
+        [TestMethod]
         public void PieController_Test_List_WithBlankCategory_ReturnsAllPies()
         {
             var viewResult = pieController.List(string.Empty);
@@ -48,7 +59,6 @@ namespace UnitTests
             var list = viewResult.ViewData.Model as PiesListViewModel;
 
             Assert.AreEqual(4, list.Pies.Count());
-            Assert.AreEqual("All Pies", list.CurrentCategory);
         }
 
         [TestMethod]
