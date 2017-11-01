@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PieShop.Controllers;
 using PieShop.Models;
 using PieShop.ViewModels;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace UnitTests
@@ -34,7 +33,7 @@ namespace UnitTests
 
             var list = viewResult.ViewData.Model as HomeViewModel;
             
-            Assert.AreEqual(2, list.PiesOfTheWeek.Count());
+            Assert.AreEqual(3, list.PiesOfTheWeek.Count());
             
         }
 
