@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace UnitTests
 {
+    [TestCategory("Pie Controller Tests")]
     [TestClass]
     public class PieControllerTests
     {
@@ -41,6 +42,19 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void PieController_Test_List_SetsCorrectCategory()
+        {
+            var category = "Fruit Pies";
+
+            var viewResult = pieController.List(category);
+
+            var list = viewResult.ViewData.Model as PiesListViewModel;
+
+            Assert.AreEqual(category, list.CurrentCategory);
+
+        }
+
+        [TestMethod]
         public void PieController_Test_List_ViewResultIsTypeOfPiesListViewModel()
         {
             var viewResult = pieController.List(string.Empty);
@@ -60,6 +74,7 @@ namespace UnitTests
 
             Assert.AreEqual(4, list.Pies.Count());
         }
+
 
         [TestMethod]
         public void PieController_Test_List_WithBlankCategory_HasCategorySetToAllPies()
